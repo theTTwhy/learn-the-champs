@@ -1,32 +1,49 @@
 import React, { Component } from "react";
+import Intro from "./intro";
+import Difficulty from "./difficulty";
 
 class Index extends Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    // initiate all states
-    this.state = {
-      step: 1
-    };
-  }
+        // initiate all states
+        this.state = {
+            step: 1,
+            difficulty: 0,
+        };
+    }
 
-  componentDidMount(){
-    // set title on page
-    document.title = "Learn the champs";
-  }
+    handleStep = ( stepValue ) => {
 
-  render() {
+        this.setState({
+           step : stepValue
+        });
+    }
 
-    return (
-      <div className="container">
-        <div className="row">
-          <div className="col-12">
-            jo
-          </div>
-        </div>
-      </div>
-    );
-  }
+    componentDidMount(){
+        // set title on page
+        document.title = "Learn the champs";
+    }
+
+    render() {
+
+        console.log(this.state);
+
+        return (
+            <div className="container">
+                <div className="row">
+                    { this.state.step === 1 ? //Intro text
+                        <Intro onChangeStep={ this.handleStep } />
+                        : ""
+                    }
+                    { this.state.step === 2 ? //Difficulty explanation
+                        <Difficulty onChangeStep={ this.handleStep } />
+                        : ""
+                    }
+                </div>
+            </div>
+        );
+    }
 
 }
 

@@ -1,9 +1,7 @@
 @import "~bootstrap/scss/bootstrap";
 
-//Font for logo Monoton
-@import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
 //Fonts
-@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@800&family=Open+Sans:wght@300;400;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@200;800&family=Open+Sans:wght@300;400;700;800&display=swap');
 
 //Colors
 $blue : #4bc5c2;
@@ -14,28 +12,43 @@ $dark-blue : #311687;
 
 
 *{
-  margin: 0;
-  font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
 
-  &:focus {
-    outline:none !important;
-  }
+    &:focus {
+        outline:none !important;
+    }
 }
 
 body {
-  background: url("../resources/img/background.jpg") no-repeat center center / cover;
-  height: 100vh;
-  width: 100vw;
+    background: url("../resources/img/background.jpg") no-repeat center center / cover;
+    height: 100vh;
+    width: 100vw;
 }
 
 p{
-  font-size: 20px;
+    font-size: 20px;
 }
 
 h1,h2,h3,h4,h5,h6,.big-fonts{
-  font-family: 'Merriweather Sans', sans-serif;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
 }
 
-.logo-text{
-  font-family: 'Monoton', cursive;
+.logo {
+    font-weight: 300;
+    font-size: 4rem;
+
+    span {
+        font-weight: bold;
+    }
+}
+
+.fake-link {
+    text-decoration: underline;
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
 }
