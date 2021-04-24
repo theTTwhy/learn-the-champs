@@ -33,6 +33,9 @@ class Intro extends Component {
                     <p className="fake-link" onClick={() => this.handleStepChange( 2 )}>
                         click here to learn more about the difficulties
                     </p>
+                    <div className="button button-start" onClick={() => this.handleStepChange( 3 )}>
+                        Start
+                    </div>
                 </div>
             </>
         )

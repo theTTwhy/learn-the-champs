@@ -1,0 +1,16 @@
+.championImage{
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.champion-name {
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
