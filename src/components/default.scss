@@ -1,0 +1,35 @@
+@import "~bootstrap/scss/bootstrap";
+
+//Font for logo Monoton
+@import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+//Fonts
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@800&family=Open+Sans:wght@300;400;700;800&display=swap');
+
+//Colors
+$blue : #4bc5c2;
+$yellow : #fdca41;
+$pink : #ff93b7;
+$dark-pink : #f9316d;
+$dark-blue : #311687;
+
+
+*{
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+
+  &:focus {
+    outline:none !important;
+  }
+}
+
+p{
+  font-size: 20px;
+}
+
+h1,h2,h3,h4,h5,h6,.big-fonts{
+  font-family: 'Merriweather Sans', sans-serif;
+}
+
+.logo-text{
+  font-family: 'Monoton', cursive;
+}
