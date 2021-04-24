@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Intro from "./intro";
 import Difficulty from "./difficulty";
+import axios from 'axios';
 
 class Index extends Component {
     constructor(props) {
@@ -10,6 +11,7 @@ class Index extends Component {
         this.state = {
             step: 1,
             difficulty: 0,
+            champions: null
         };
     }
 
@@ -23,6 +25,14 @@ class Index extends Component {
     componentDidMount(){
         // set title on page
         document.title = "Learn the champs";
+
+        //Fetch all Champions from ddragon with basic info (no abilities)
+        axios.get(`http://ddragon.leagueoflegends.com/cdn/11.8.1/data/en_US/champion.json`)
+            .then(res => {
+                this.setState({
+                   champions: res.data.data
+                });
+            })
     }
 
     render() {
