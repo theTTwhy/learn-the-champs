@@ -6,12 +6,18 @@ class Intro extends Component {
 
         // initiate all states
         this.state = {
-            difficulty: 0,
+            difficulty: null,
         };
     }
 
-    handleStepChange = ( stepValue ) => {
-        this.props.onChangeStep( stepValue );
+    handleStepChange = () => {
+        this.props.onChangeStep( Number(this.state.difficulty) );
+    }
+
+    changeDifficulty(e) {
+        this.setState({
+            difficulty: e.target.value
+        });
     }
 
     render() {
@@ -33,7 +39,16 @@ class Intro extends Component {
                     <p className="fake-link" onClick={() => this.handleStepChange( 2 )}>
                         click here to learn more about the difficulties
                     </p>
-                    <div className="button button-start" onClick={() => this.handleStepChange( 3 )}>
+                    <select name="difficulty" id="difficulty" onChange={this.changeDifficulty.bind(this)}>
+                        <option value="none" selected disabled>Please select a difficulty</option>
+                        <option value="3">Iron</option>
+                        <option value="4">Bronze</option>
+                        <option value="5">Silver</option>
+                        <option value="6">Gold</option>
+                        <option value="7">Diamond</option>
+                        <option value="8">Challenger</option>
+                    </select>
+                    <div className="button button-start" onClick={() => this.handleStepChange()}>
                         Start
                     </div>
                 </div>

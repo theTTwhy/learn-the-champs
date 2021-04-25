@@ -1,7 +1,11 @@
-.championImage{
+.champion-image{
     width: 500px;
     margin-left: auto;
     margin-right: auto;
+
+    @media (max-width: 1050px) {
+        width: 90%;
+    }
 }
 
 .champion-name {
@@ -13,4 +17,41 @@
     &:hover {
         text-decoration: underline;
     }
+}
+
+.image-wrapper {
+    position: relative;
+    width: 100%;
+
+    .champion-name {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #000;
+        text-shadow: 0 0 5px #fff;
+        cursor: unset;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}
+
+.score-overview {
+    position: absolute;
+    top: 10px;
+    right: 250px;
+    font-weight: bold;
+    font-size: 2rem;
+
+    @media (max-width: 1050px) {
+        left: 50%;
+        transform: translateX(-50%);
+        right: unset;
+    }
+}
+
+.bronze-emblem {
+    width: 200px;
 }
