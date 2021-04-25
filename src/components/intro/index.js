@@ -39,7 +39,7 @@ class Intro extends Component {
                     <p className="fake-link" onClick={() => this.handleStepChange( 2 )}>
                         click here to learn more about the difficulties
                     </p>
-                    <select name="difficulty" id="difficulty" onChange={this.changeDifficulty.bind(this)}>
+                    <select name="difficulty" className="mt-2 mb-4 select-standard" id="difficulty" onChange={this.changeDifficulty.bind(this)}>
                         <option value="none" selected disabled>Please select a difficulty</option>
                         <option value="3">Iron</option>
                         <option value="4">Bronze</option>
