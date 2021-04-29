@@ -186,7 +186,7 @@ class GameIron extends Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-12 col-md-6 mt-4 mt-md-4">
+                                            <div className="col-12 col-md-6 mt-4 mt-md-0">
                                                 <div className="image-wrapper">
                                                     <img src={ this.state.championFalseImageURL } alt="Champion" className="img-fluid champion-image-answer"/>
                                                     <div className="champion-name">
