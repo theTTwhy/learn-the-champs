@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./default.scss"
 
-class GameIron extends Component {
+class GameBronze extends Component {
     constructor(props) {
         super(props);
 
@@ -13,20 +13,20 @@ class GameIron extends Component {
             champions: null,
             totalChampions: 0,
             score: 0,
-            showResults: false,
+            showResults: true,
             resultThis: null,
             resultQuestion: false,
             currentQuestion: 1,
             championCorrect: null,
             championImageURL: null,
-            championFalse: null,
-            championFalseImageURL: null,
+            guess: "",
+            attempts: 0,
         };
     }
 
     componentDidMount(){
         // set title on page
-        document.title = "Learn the Champs | Iron";
+        document.title = "Learn the Champs | Bronze";
 
         //Fetch all Champions from ddragon with basic info (no abilities)
         axios.get(`https://ddragon.leagueoflegends.com/cdn/11.8.1/data/en_US/champion.json`)
@@ -40,7 +40,7 @@ class GameIron extends Component {
             })
     }
 
-    startIron() {
+    startBronze() {
         this.setState({
             start: true,
         });
@@ -50,50 +50,101 @@ class GameIron extends Component {
 
     generateNewQuestion() {
         let randomNumber = Math.floor(Math.random() * this.state.totalChampions);
-        let randomNumberFalse = Math.floor(Math.random() * this.state.totalChampions);
         let key1 = Object.keys(this.state.champions)[randomNumber];
-        let key2 = Object.keys(this.state.champions)[randomNumberFalse];
         let champion = this.state.champions[key1];
-        let championFalse = this.state.champions[key2];
-
         let championImageName = champion.image.full.split(".");
         let championImageURL = "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + championImageName[0] + "_0.jpg"
-        let championFalseImageName = championFalse.image.full.split(".");
-        let championFalseImageURL = "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + championFalseImageName[0] + "_0.jpg"
 
         this.setState({
             championCorrect: champion,
-            championFalse: championFalse,
             championImageURL: championImageURL,
-            championFalseImageURL: championFalseImageURL,
+            guess: "",
+            attempts: 0
         })
     }
 
-    checkAnswer(answer) {
-        if( answer === true ) {
+    changeAnswer(e) {
+        this.setState({
+            guess: e.target.value,
+        })
+    }
+
+    similarity(s1, s2) {
+        var longer = s1;
+        var shorter = s2;
+        if (s1.length < s2.length) {
+            longer = s2;
+            shorter = s1;
+        }
+        var longerLength = longer.length;
+        if (longerLength == 0) {
+            return 1.0;
+        }
+        return (longerLength - this.editDistance(longer, shorter)) / parseFloat(longerLength);
+    }
+
+    editDistance(s1, s2) {
+        s1 = s1.toLowerCase();
+        s2 = s2.toLowerCase();
+
+        var costs = new Array();
+        for (var i = 0; i <= s1.length; i++) {
+            var lastValue = i;
+            for (var j = 0; j <= s2.length; j++) {
+                if (i == 0)
+                    costs[j] = j;
+                else {
+                    if (j > 0) {
+                        var newValue = costs[j - 1];
+                        if (s1.charAt(i - 1) != s2.charAt(j - 1))
+                            newValue = Math.min(Math.min(newValue, lastValue),
+                                costs[j]) + 1;
+                        costs[j - 1] = lastValue;
+                        lastValue = newValue;
+                    }
+                }
+            }
+            if (i > 0)
+                costs[s2.length] = lastValue;
+        }
+        return costs[s2.length];
+    }
+
+    checkAnswer() {
+        console.log(this.state.attempts);
+
+        if( this.similarity(this.state.championCorrect.name,this.state.guess) > 0.75 ) {
+            this.newQuestion();
             this.setState({
                 score: this.state.score + 1,
-                resultThis: "Correct",
+                currentQuestion: this.state.currentQuestion + 1
             });
         }
         else {
-            this.setState({
-                resultThis: "False",
-            });
+            if(this.state.attempts >= 2){
+                this.newQuestion();
+                this.setState({
+                    currentQuestion: this.state.currentQuestion + 1
+                });
+            }
+            else{
+                alert("Dit was helaas fout u heeft in totaal 3 pogingen per champion");
+                this.setState({
+                    attempts: this.state.attempts + 1
+                })
+            }
         }
-
-        this.setState({
-            resultQuestion: true,
-            currentQuestion: this.state.currentQuestion + 1,
-        })
     }
 
     newQuestion(){
-        this.generateNewQuestion();
-
-        this.setState({
-            resultQuestion: false,
-        })
+        if(this.state.currentQuestion === 20){
+            this.setState({
+                resultQuestion: true,
+            });
+        }
+        else {
+            this.generateNewQuestion();
+        }
     }
 
     showResults() {
@@ -107,15 +158,6 @@ class GameIron extends Component {
     }
 
     render() {
-        let randomOrder1 = Math.floor(Math.random() * 2) + 1;
-        let randomOrder2;
-
-        if(randomOrder1 === 1){
-            randomOrder2 = 2;
-        }
-        else {
-            randomOrder2 = 1;
-        }
 
         return (
             <>
@@ -130,7 +172,7 @@ class GameIron extends Component {
                                 The challenge for you is to correctly choose which name this champion has. <br />
                                 You will get to see 20 champions in total,<br /> after having all the champions you will an overview of your results!
                             </p>
-                            <div className="button button-start" onClick={() => this.startIron()}>
+                            <div className="button button-start" onClick={() => this.startBronze()}>
                                 Start
                             </div>
                         </div>
@@ -150,13 +192,15 @@ class GameIron extends Component {
                                 </h1>
                                 <img src={ this.state.championImageURL } alt="Champion" className="champion-image" />
                             </div>
-                            <div className="col-12 col-md-6 offset-md-3">
+                            <div className="col-12">
                                 <div className="row">
-                                    <div className={"col-12 col-md-6 text-center champion-name order-" + randomOrder1 } onClick={this.checkAnswer.bind(this, true)}>
-                                        { this.state.championCorrect.name }
-                                    </div>
-                                    <div className={"col-12 col-md-6 text-center champion-name order-" + randomOrder2 } onClick={this.checkAnswer.bind(this, false)}>
-                                        { this.state.championFalse.name }
+                                    <div className={"col-12 text-center d-flex justify-content-center align-items-center"}>
+                                        <div>
+                                            <input type="text" name="champion-name" value={this.state.guess} onChange={this.changeAnswer.bind(this)} />
+                                            <div className="button button-start mt-5" onClick={() => this.checkAnswer()}>
+                                                Next Question
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -186,15 +230,7 @@ class GameIron extends Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-12 col-md-6 mt-4 mt-md-0">
-                                                <div className="image-wrapper">
-                                                    <img src={ this.state.championFalseImageURL } alt="Champion" className="img-fluid champion-image-answer"/>
-                                                    <div className="champion-name">
-                                                        { this.state.championFalse.name }
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            { this.state.currentQuestion === 21 ? //show results
+                                            { this.state.currentQuestion === 20 ? //show results
                                                 <div className="button button-start mt-5" onClick={() => this.showResults()}>
                                                     Show Results
                                                 </div>
@@ -216,15 +252,15 @@ class GameIron extends Component {
                                         </p>
                                         { (( this.state.score / ( this.state.currentQuestion - 1 ) ) * 100 ) >= 60 ?
                                             <>
-                                                <img src="/ranked-emblems/Emblem_Bronze.png" alt="Bronze" className="bronze-emblem" />
+                                                <img src="/ranked-emblems/Emblem_Silver.png" alt="Bronze" className="bronze-emblem" />
                                                 <p>
-                                                    Very nice!, you have been promoted to bronze!
+                                                    Very nice!, you have been promoted to silver!
                                                 </p>
 
                                             </>
                                             :
                                             <p>
-                                                Nice try, maybe try again before promoting to bronze
+                                                Nice try, maybe try again before promoting to silver
                                             </p>
                                         }
                                         <div className="fake-link" onClick={() => this.tryAgain()}>
@@ -243,4 +279,4 @@ class GameIron extends Component {
 
 }
 
-export default GameIron;
+export default GameBronze;
