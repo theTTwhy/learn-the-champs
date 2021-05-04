@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./default.scss"
 
-class GameSilver extends Component {
+class GameGold extends Component {
     constructor(props) {
         super(props);
 
@@ -46,7 +46,7 @@ class GameSilver extends Component {
             })
     }
 
-    startSilver() {
+    startGold() {
         this.setState({
             start: true,
         });
@@ -71,7 +71,8 @@ class GameSilver extends Component {
             .then(res => {
                 let key = Object.keys(res.data.data)[0];
                 let championsSpells = res.data.data[key].spells;
-                let keySpell = Object.keys(championsSpells)[3];
+                let randomSpellNumber = Math.floor(Math.random() * 4);
+                let keySpell = Object.keys(championsSpells)[randomSpellNumber];
                 let randomSpell = championsSpells[keySpell];
                 let randomSpellName = randomSpell.name;
                 let randomSpellDescription = randomSpell.description.replaceAll(champion.name,"The Champion").replaceAll(/<\/?[^>]+(>|$)/g, "").replaceAll(champion.name + "'s","The Champion's");
@@ -88,7 +89,8 @@ class GameSilver extends Component {
             .then(res => {
                 let key = Object.keys(res.data.data)[0];
                 let championsSpells = res.data.data[key].spells;
-                let keySpell = Object.keys(championsSpells)[3];
+                let randomSpellNumber = Math.floor(Math.random() * 4);
+                let keySpell = Object.keys(championsSpells)[randomSpellNumber];
                 let randomSpell = championsSpells[keySpell];
                 let randomSpellName = randomSpell.name;
                 let randomSpellDescription = randomSpell.description.replaceAll(championFalse.name,"The Champion").replaceAll(/<\/?[^>]+(>|$)/g, "").replaceAll(championFalse.name + "'s","The Champion's");
@@ -167,10 +169,10 @@ class GameSilver extends Component {
                             </h1>
                             <p>
                                 Every Slide you the Summoner will get to see a random champion with a name. <br />
-                                The challenge for you is to correctly choose which Ultimate this champion has. <br />
+                                The challenge for you is to correctly choose which spell/ability this champion has. <br />
                                 You will get to see 20 champions in total,<br /> after having all the champions you will an overview of your results!
                             </p>
-                            <div className="button button-start" onClick={() => this.startSilver()}>
+                            <div className="button button-start" onClick={() => this.startGold()}>
                                 Start
                             </div>
                         </div>
@@ -293,15 +295,15 @@ class GameSilver extends Component {
                                         </p>
                                         { (( this.state.score / ( this.state.currentQuestion - 1 ) ) * 100 ) >= 60 ?
                                             <>
-                                                <img src="/ranked-emblems/Emblem_Gold.png" alt="Gold" className="bronze-emblem" />
+                                                <img src="/ranked-emblems/Emblem_Diamond.png" alt="Diamond" className="bronze-emblem" />
                                                 <p>
-                                                    Very nice!, you have been promoted to Gold!
+                                                    Very nice!, you have been promoted to Diamond!
                                                 </p>
 
                                             </>
                                             :
                                             <p>
-                                                Nice try, maybe try again before promoting to Gold
+                                                Nice try, maybe try again before promoting to Diamond
                                             </p>
                                         }
                                         <div className="fake-link" onClick={() => this.tryAgain()}>
@@ -320,4 +322,4 @@ class GameSilver extends Component {
 
 }
 
-export default GameSilver;
+export default GameGold;

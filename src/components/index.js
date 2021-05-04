@@ -4,6 +4,7 @@ import Difficulty from "./difficulty";
 import GameIron from "./game-iron";
 import GameBronze from "./game-bronze";
 import GameSilver from "./game-silver";
+import GameGold from "./game-gold";
 
 class Index extends Component {
     constructor(props) {
@@ -51,6 +52,10 @@ class Index extends Component {
                     }
                     { this.state.scene === 5 ? //Game Silver
                         <GameSilver />
+                        : ""
+                    }
+                    { this.state.scene === 6 ? //Game Silver
+                        <GameGold />
                         : ""
                     }
                 </div>
