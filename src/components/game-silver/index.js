@@ -201,7 +201,6 @@ class GameSilver extends Component {
                                 <div className="row">
                                     <div className={"col-12 col-md-6 text-center order-" + randomOrder1 } onClick={this.checkAnswer.bind(this, true)}>
                                         <div className="spell-details">
-                                            <img src={ this.state.randomSpellImageURL } alt="Ability" className="img-fluid" />
                                             <p className="title">
                                                 { this.state.randomSpellName }
                                             </p>
@@ -212,7 +211,6 @@ class GameSilver extends Component {
                                     </div>
                                     <div className={"col-12 col-md-6 mt-5 mt-md-0 text-center order-" + randomOrder2 } onClick={this.checkAnswer.bind(this, false)}>
                                         <div className="spell-details">
-                                            <img src={ this.state.randomSpellImageURLFalse } alt="Ability" className="img-fluid" />
                                             <p className="title">
                                                 { this.state.randomSpellNameFalse }
                                             </p>
