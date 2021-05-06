@@ -130,7 +130,7 @@ class GameIron extends Component {
                                 The challenge for you is to correctly choose which name this champion has. <br />
                                 You will get to see 20 champions in total,<br /> after having all the champions you will an overview of your results!
                             </p>
-                            <div className="button button-start" onClick={() => this.startIron()}>
+                            <div className="button button-start mx-auto mt-5" onClick={() => this.startIron()}>
                                 Start
                             </div>
                         </div>
@@ -148,15 +148,22 @@ class GameIron extends Component {
                                 <h1 className="mt-5 mb-5">
                                     Choose the correct name for this champion
                                 </h1>
-                                <img src={ this.state.championImageURL } alt="Champion" className="champion-image" />
+                                <div className="single-champ--no-name">
+                                    <img src={ this.state.championImageURL } alt="Champion" className="champion-image" />
+                                    <img src="/single-champ.png" alt="overlay" className="overlay" />
+                                </div>
                             </div>
-                            <div className="col-12 col-md-6 offset-md-3">
+                            <div className="col-12 col-md-6 offset-md-3 mt-4">
                                 <div className="row">
                                     <div className={"col-12 col-md-6 text-center champion-name order-" + randomOrder1 } onClick={this.checkAnswer.bind(this, true)}>
-                                        { this.state.championCorrect.name }
+                                        <div className="button mx-auto">
+                                            { this.state.championCorrect.name }
+                                        </div>
                                     </div>
                                     <div className={"col-12 col-md-6 text-center champion-name order-" + randomOrder2 } onClick={this.checkAnswer.bind(this, false)}>
-                                        { this.state.championFalse.name }
+                                        <div className="button mx-auto">
+                                            { this.state.championFalse.name }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -166,7 +173,7 @@ class GameIron extends Component {
                             <div className="col-12 text-center mt-5 mb-5">
                                 { this.state.showResults === false ? //show result single or total
                                     <>
-                                        <h1 className="mt-md-5 mb-md-5 mt-2 mb-2">
+                                        <h1 className="mt-md-5 mb-md-5 mt-2 mb-5 mb-md-2">
                                             { this.state.resultThis }
                                         </h1>
                                         { this.state.resultThis === "False" ?
@@ -178,28 +185,30 @@ class GameIron extends Component {
                                             : ""
                                         }
                                         <div className="row">
-                                            <div className="col-12 col-md-6">
-                                                <div className="image-wrapper">
+                                            <div className="col-12 col-md-6 mb-5">
+                                                <div className="single-champ--name">
                                                     <img src={ this.state.championImageURL } alt="Champion" className="img-fluid champion-image-answer"/>
                                                     <div className="champion-name">
                                                         { this.state.championCorrect.name }
                                                     </div>
+                                                    <img src="/single-champ.png" alt="overlay" className="overlay" />
                                                 </div>
                                             </div>
                                             <div className="col-12 col-md-6 mt-4 mt-md-0">
-                                                <div className="image-wrapper">
+                                                <div className="single-champ--name">
                                                     <img src={ this.state.championFalseImageURL } alt="Champion" className="img-fluid champion-image-answer"/>
                                                     <div className="champion-name">
                                                         { this.state.championFalse.name }
                                                     </div>
+                                                    <img src="/single-champ.png" alt="overlay" className="overlay" />
                                                 </div>
                                             </div>
-                                            { this.state.currentQuestion === 21 ? //show results
-                                                <div className="button button-start mt-5" onClick={() => this.showResults()}>
+                                            { this.state.currentQuestion === 3 ? //show results
+                                                <div className="button button-start mx-auto mt-5" onClick={() => this.showResults()}>
                                                     Show Results
                                                 </div>
                                                 :
-                                                <div className="button button-start mt-5" onClick={() => this.newQuestion()}>
+                                                <div className="button button-start mx-auto mt-5" onClick={() => this.newQuestion()}>
                                                     Next Question
                                                 </div>
                                             }
@@ -218,7 +227,7 @@ class GameIron extends Component {
                                             <>
                                                 <img src="/ranked-emblems/Emblem_Bronze.png" alt="Bronze" className="bronze-emblem" />
                                                 <p>
-                                                    Very nice!, you have been promoted to bronze!
+                                                    Very nice! You have been promoted to bronze!
                                                 </p>
 
                                             </>
@@ -227,7 +236,7 @@ class GameIron extends Component {
                                                 Nice try, maybe try again before promoting to bronze
                                             </p>
                                         }
-                                        <div className="fake-link" onClick={() => this.tryAgain()}>
+                                        <div className="button mx-auto mt-5" onClick={() => this.tryAgain()}>
                                             Try again!
                                         </div>
                                     </>

@@ -3,8 +3,18 @@
 //Fonts
 @import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@200;800&family=Open+Sans:wght@300;400;700;800&display=swap');
 
+@font-face {
+    font-family: Beaufort;
+    src: url("../resources/font/Beaufort-Bold.ttf");
+}
+
+@font-face {
+    font-family: Spiegel;
+    src: url("../resources/font/spiegel.ttf");
+}
+
 //Colors
-$blue : #4bc5c2;
+$blue : #0bc6e3;
 $yellow : #fdca41;
 $pink : #ff93b7;
 $dark-pink : #f9316d;
@@ -13,7 +23,7 @@ $dark-blue : #311687;
 
 *{
     margin: 0;
-    font-family: 'Open Sans', sans-serif;
+    font-family: Spiegel, sans-serif;
 
     &:focus {
         outline:none !important;
@@ -21,7 +31,7 @@ $dark-blue : #311687;
 }
 
 body {
-    background: url("../resources/img/background.jpg") no-repeat center center / cover;
+    background: url("../resources/img/riot.png") repeat-x center -250px / contain;
     height: 100vh;
 
     @media (max-width: 1250px) {
@@ -35,16 +45,34 @@ p{
 }
 
 h1,h2,h3,h4,h5,h6,.big-fonts{
-    font-family: 'Open Sans', sans-serif;
-    font-weight: bold;
+    font-family: Beaufort, sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #000;
+    font-style: italic;
 }
 
 .logo {
-    font-weight: 300;
-    font-size: 4rem;
+    font-size: 1.5rem;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    font-family: Spiegel, sans-serif;
+    font-style: italic;
 
     span {
-        font-weight: bold;
+        font-size: 120px;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        color: #000;
+        font-weight: 800;
+        font-family: Beaufort, sans-serif;
+        display: block;
+
+        @media (max-width: 1250px) {
+            font-size: 50px;
+        }
     }
 }
 
@@ -55,31 +83,87 @@ h1,h2,h3,h4,h5,h6,.big-fonts{
     display: block;
     margin-left: auto;
     margin-right: auto;
+    max-width: 100%;
 
     &:hover {
         text-decoration: underline;
     }
 }
 
-.button{
-    cursor: pointer;
-
-    &-start {
-        color: #fff;
-        font-size: 1.5rem;
-        background: coral;
-        border: 2px solid #fff;
-        padding: 5px 15px;
-        width: max-content;
-        margin-left: auto;
-        margin-right: auto;
-    }
+.select-standard {
+    color: #F9F9F9;
+    font-size: 12px;
+    background: #111111;
+    padding: 5px 15px;
+    text-transform: uppercase;
+    border: none;
 }
 
-.select-standard {
-    color: #fff;
-    font-size: 1.5rem;
-    background: coral;
-    border: 2px solid #fff;
-    padding: 5px 15px;
+.p-relative {
+    position: relative;
+}
+
+.button {
+    cursor: pointer;
+    position: relative;
+    display: block;
+    width: max-content;
+    background: $blue;
+    text-align: center;
+    color: #0b1d27;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    font-weight: 500;
+    padding: 0 50px;
+    transition: 0.3s ease-in-out;
+
+    &:hover {
+        background: #baf6ff;
+        text-decoration: none;
+
+        &:before{
+            border-left: 15px solid #baf6ff;
+            border-bottom: 15px solid #baf6ff;
+        }
+
+        &:after{
+            border-right: 15px solid #baf6ff;
+            border-top: 15px solid #baf6ff;
+        }
+    }
+
+    &:before,
+    &:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 100%;
+        border-bottom: 10px solid $blue;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        transition: 0.3s ease-in-out;
+
+        @media (max-width: 1250px) {
+            bottom: 95%;
+        }
+    }
+
+    &:before{
+        border-left: 10px solid $blue;
+    }
+
+    &:after{
+        border-right: 10px solid $blue;
+        bottom: auto;
+        top: 100%;
+        border-bottom: none;
+        border-top: 10px solid $blue;
+
+        @media (max-width: 1250px) {
+            top: 95%;
+        }
+    }
+
 }

@@ -14,8 +14,14 @@
     cursor: pointer;
     transition: 0.3s ease-in-out;
 
+    .button {
+        @media (max-width: 1250px) {
+            margin-bottom: 50px;
+        }
+    }
+
     &:hover {
-        text-decoration: underline;
+        text-decoration: none;
     }
 }
 
@@ -31,9 +37,60 @@
         color: #000;
         text-shadow: 0 0 5px #fff;
         cursor: unset;
+    }
+}
 
-        &:hover {
-            text-decoration: none;
+.single-champ {
+    &--name {
+        position: relative;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+
+        .overlay {
+            position: absolute;
+            top: -5%;
+            left: 2.5%;
+            height: 110%;
+            width: 95%;
+            pointer-events: none;
+        }
+
+        .champion-name {
+            background: #f6f6f6;
+            padding: 25px 0;
+            font-family: Beaufort, sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-style: italic;
+        }
+}
+
+    &--no-name {
+        position: relative;
+        width: max-content;
+        margin-left: auto;
+        margin-right: auto;
+
+        @media (max-width: 1250px) {
+            width: 100%;
+        }
+
+        .overlay {
+            position: absolute;
+            top: -5%;
+            left: 2.5%;
+            height: 110%;
+            width: 95%;
+            pointer-events: none;
+
+            @media (max-width: 1250px) {
+                top: -5%;
+                left: 7.5%;
+                height: 110%;
+                width: 85%;
+                pointer-events: none;
+            }
         }
     }
 }

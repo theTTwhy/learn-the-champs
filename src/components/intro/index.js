@@ -48,9 +48,12 @@ class Intro extends Component {
                         <option value="7">Diamond</option>
                         <option value="8">Challenger</option>
                     </select>
-                    <div className="button button-start" onClick={() => this.handleStepChange()}>
-                        Start
-                    </div>
+                    { this.state.difficulty !== null ?
+                        <div className="button button-start mx-auto" onClick={() => this.handleStepChange()}>
+                            Start
+                        </div>
+                        : ""
+                    }
                 </div>
             </>
         )
